@@ -1,0 +1,8 @@
+{
+	"files": [
+		{
+			"path": "./.next/static/**/pages/_app*.js",
+			"maxSize": "35 kB"
+		}
+	]
+}

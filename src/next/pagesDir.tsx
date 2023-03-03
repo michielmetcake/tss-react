@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { ReactNode } from "react";
-import createEmotionServer from "@emotion/server/create-instance";
+import type createEmotionServer_t from "@emotion/server/create-instance";
 import type { DocumentContext } from "next/document";
 import type { EmotionCache } from "@emotion/cache";
 import { CacheProvider as DefaultCacheProvider } from "@emotion/react";
@@ -42,10 +42,22 @@ export function createEmotionSsrAdvancedApproach(
             );
         }
 
+        let createEmotionServer: typeof createEmotionServer_t | undefined =
+            undefined;
+
+        import("@emotion/server/create-instance").then(
+            m => (createEmotionServer = m.default)
+        );
+
         (Document as any).getInitialProps = async (
             documentContext: DocumentContext
         ) => {
             const cache = createCache(optionsWithoutPrependProp);
+
+            assert(
+                createEmotionServer !== undefined,
+                "Emotion server not yet loaded. Please submit an issue to the tss-react repo"
+            );
 
             const emotionServer = createEmotionServer(cache);
 
@@ -69,7 +81,7 @@ export function createEmotionSsrAdvancedApproach(
 
             assert(
                 super_getInitialProps !== undefined,
-                "If you get this error please open an issue on the tss-react repo"
+                "Default document not yet loaded. Please submit an issue to the tss-react repo"
             );
 
             const initialProps = await super_getInitialProps(documentContext);

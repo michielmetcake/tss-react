@@ -74,6 +74,10 @@ In SSR everything should work with [JavaScript disabled](https://developer.chrom
 <details>
     <summary>Click to expand</summary>
 
+## v4.7.0
+
+-   Reduce bundle size when using Next.js Pages dir setup, fixes [#147](https://github.com/garronej/tss-react/issues/147)
+
 ## v4.5.0
 
 -   Provide support for [Next 13 appDir](https://docs.tss-react.dev/ssr/next.js#app-dir).
